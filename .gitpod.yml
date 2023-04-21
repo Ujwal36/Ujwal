@@ -1,0 +1,31 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: python
+    env:
+      ASSET_ID: 123
+    command: |
+      gp sync-await awscreds
+    #   bash ./scripts/poetry-install.sh
+  - name: awscreds
+    openMode: split-right
+    command: |
+      echo How to start equipmentshare-api:
+      echo '1) Grab AWS creds from https://dev-portal.internal.equipmentshare.com and paste in this terminal'
+      echo '2) gp sync-done awscreds'
+
+ports:
+  - port: 5000
+    onOpen: open-browser
+
+vscode:
+  extensions:
+    - ms-python.python
+    - ms-python.vscode-pylance
+    - redhat.vscode-yaml
+    - yzhang.markdown-all-in-one
+
+jetbrains:
+  pycharm:
+    vmoptions: "-Xmx4g"
