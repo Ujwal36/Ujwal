@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "gitpod-python-node"
+name = "gitpod-python"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
-packages = [{include = "gitpod_python_node"}]
+packages = [{include = "gitpod_python"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -24,4 +24,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-start = "gitpod_python_node.main:start"
+start = "gitpod_python.main:start"
