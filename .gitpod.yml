@@ -3,8 +3,6 @@ image:
 
 tasks:
   - name: python
-    env:
-      ASSET_ID: 123
     command: |
       gp sync-await awscreds
     #   bash ./scripts/poetry-install.sh
