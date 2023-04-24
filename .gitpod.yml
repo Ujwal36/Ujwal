@@ -5,11 +5,12 @@ tasks:
   - name: python
     command: |
       gp sync-await awscreds
-    #   bash ./scripts/poetry-install.sh
+      bash ./poetry-install.sh
+      poetry run start
   - name: awscreds
     openMode: split-right
     command: |
-      echo How to start equipmentshare-api:
+      echo How to start working:
       echo '1) Grab AWS creds from https://dev-portal.internal.equipmentshare.com and paste in this terminal'
       echo '2) gp sync-done awscreds'
 
