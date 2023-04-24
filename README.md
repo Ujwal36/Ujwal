@@ -3,14 +3,17 @@
 Template for `python`/`poetry` projects
 
 
-## Getting started   
-Review `.gitpod.Dockerfile` for configuration of workspace.   
+## Gitpod   
+### Getting started   
+- Review `.gitpod.Dockerfile` for configuration of workspace.   
+- Review `.gitpod.yml` for workspace tasks
 
 
-## Poetry
-- `poetry run start` - simple starter function
+### Poetry
+- `./poetry-install.sh` - script to install from AWS CodeArtifact
+- `poetry run start` - starter function
 
-## CDK:
+### CDK:
 NodeJS is included to assit with `cdk` operations:
 - `mkdir cdk`
 - `cd cdk/`
