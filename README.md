@@ -2,8 +2,10 @@
 
 Template for `python`/`poetry` projects
 
-## Gitpod   
-### Getting started   
+## Gitpod Onboarding 
+- Follow the [onboarding docs](https://www.notion.so/equipmentshare/Gitpod-12de6a3707be456784a08900ec206fe5) to join Gitpod
+
+## Gitpod Files
 - Inspect `.gitpod.Dockerfile` for configuration of workspace.  
   - Review ENV VARs 
     - `PYTHON_VERSION`

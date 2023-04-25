@@ -1,8 +1,7 @@
 FROM gitpod/workspace-full
 
-# Pyenv is used on gitpod workspaces, and its hard to link to exact
-# python versions supported without know version of pyenv cli 
-# https://github.com/pyenv/pyenv/releases
+# https://www.python.org/downloads/ 
+# check if pyenv supports python version
 ENV PYTHON_VERSION=3.11.1
 # https://github.com/python-poetry/poetry/releases
 ENV POETRY_VERSION=1.4.2
