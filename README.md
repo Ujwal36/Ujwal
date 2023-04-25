@@ -2,12 +2,14 @@
 
 Template for `python`/`poetry` projects
 
-
 ## Gitpod   
 ### Getting started   
-- Review `.gitpod.Dockerfile` for configuration of workspace.   
+- Inspect `.gitpod.Dockerfile` for configuration of workspace.  
+  - Review ENV VARs 
+    - `PYTHON_VERSION`
+    - `POETRY_VERSION`
+    - `NODE_VERSION`
 - Review `.gitpod.yml` for workspace tasks
-
 
 ### Poetry
 - `./poetry-install.sh` - script to install from AWS CodeArtifact
