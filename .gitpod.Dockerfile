@@ -1,8 +1,13 @@
 FROM gitpod/workspace-full
 
+# Pyenv is used on gitpod workspaces, and its hard to link to exact
+# python versions supported without know version of pyenv cli 
+# https://github.com/pyenv/pyenv/releases
 ENV PYTHON_VERSION=3.11.1
+# https://github.com/python-poetry/poetry/releases
 ENV POETRY_VERSION=1.4.2
-ENV NODE_VERSION=18.15.0
+# https://nodejs.org/en/download/releases
+ENV NODE_VERSION=18.16.0
 
 ENV AWS_DEFAULT_REGION=us-west-2
 
