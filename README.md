@@ -1,5 +1,7 @@
 # gitpod-python
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://equipmentshare.gitpod.cloud/#your-gitlab-repo-url)
+
 Template for `python`/`poetry` projects
 
 ## Gitpod Onboarding 
