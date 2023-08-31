@@ -2,10 +2,19 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
+  - name: prebuild
+    init: | 
+      curl https://gitlab.internal.equipmentshare.com/infrastructure/equipmentshare-aliases/-/raw/main/.bash_aliases --output /workspace/.equipmentshare_aliases
+      source /workspace/.equipmentshare_aliases
+      get-gitpod-prebuild-aws-creds 696398453447
+      poetry-codeartifact-login 696398453447
+      poetry install
+      unset-all-creds
   - name: python
     command: |
       gp sync-await awscreds
-      bash ./poetry-install.sh
+      source /workspace/.equipmentshare_aliases
+      poetry-codeartifact-login 696398453447
       poetry run start
   - name: awscreds
     openMode: split-right
