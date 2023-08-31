@@ -16,7 +16,6 @@ Template for `python`/`poetry` projects
 - Review `.gitpod.yml` for workspace tasks
 
 ### Poetry
-- `./poetry-install.sh` - script to install from AWS CodeArtifact
 - `poetry run start` - starter function
 
 ### CDK:
