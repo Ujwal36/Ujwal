@@ -27,4 +27,3 @@ docs/
 *.local.ini
 .pytest_cache/
 local/
-.vscode/
