@@ -1,6 +1,5 @@
+from helpers.helper_base import HelperFunc
 from selenium.webdriver import WebDriverWait
-
-from helper_base import HelperFunc
 
 
 def __init__(self, driver):
@@ -8,6 +7,3 @@ def __init__(self, driver):
     self._driver_wait = WebDriverWait(driver, HelperFunc.__TIMEOUT)
     self._driver = driver
 
-
-def openbrowser(self, url):
-    self._driver.get(url)
