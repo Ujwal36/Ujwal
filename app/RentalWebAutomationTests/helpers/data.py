@@ -15,3 +15,4 @@ class PageRelatedData(object):
                                  "Industrial Tooling".upper(): "Tooling Solutions".upper(),
                                  "Safety, Testing & Communication".upper(): "Tooling Solutions".upper()
                                  }
+    List_of_subcategories_dict = {"Aerial Work Platforms".upper(): ["Articulating Boom Lift","Electric Boom Lift","Electric Scissor Lift","Push Around One Man Lift","Rough Terrain Scissor Lift","Telescopic Boom Lift","Towable Boom Lift","Vertical Mast Lift"]}

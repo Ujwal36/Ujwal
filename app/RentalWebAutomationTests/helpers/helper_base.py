@@ -54,4 +54,7 @@ class HelperFunc(object):
         return self._driver.current_url
 
     def find_elements_by_xpath(self, xpath):
-        return self._driver.find_elements(By.XPATH,xpath)
+        return self._driver.find_elements(By.XPATH, xpath)
+
+    def find_by_linkText(self, text):
+        return self._driver.find_element(By.LINK_TEXT, text)

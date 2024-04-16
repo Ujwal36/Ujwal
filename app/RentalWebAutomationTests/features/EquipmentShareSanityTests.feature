@@ -1,4 +1,4 @@
-Feature: Testing Equipmentshare Categories page
+Feature: Rental Web Automation
 
   Scenario: ES categories page launch, verification of home page and Title verification
     Given I go to Equipmentshare Categories page
@@ -36,6 +36,7 @@ Feature: Testing Equipmentshare Categories page
   Scenario: Validate location navbar feature in category listing page.
     Given I go to Equipmentshare Categories page
     Given I click on a category Compaction
+    Then I Validate product count in listing page
     Then I Click on location icon on the top left corner twice
 
   Scenario: Validate location navbar feature in category listing page.
@@ -50,5 +51,41 @@ Feature: Testing Equipmentshare Categories page
     Given I go to Equipmentshare Categories page
     Given I click on a category Aerial_work_platforms
     Then I Validate Breadcrumb to be RENT / EQUIPMENT / AERIAL WORK PLATFORMS
-    Then I validate page title to be Aerial Work Platforms Rental | EquipmentShare
-    Then I validate product count
+    Then I validate the page title to be Aerial Work Platforms Rental | EquipmentShare
+    Then I Validate product count in listing page
+
+  Scenario: Validate Filter by category section in the listing page
+     Given I go to Equipmentshare Categories page
+     Given I click on a category Aerial_work_platforms
+     Then I validate Filter By Category Section in Aerial_work_platforms
+
+  Scenario: Validate page URL Breadcrumb and equipment details when clicked on sub-category links.
+    Given I go to Equipmentshare Categories page
+    Given I click on a category Aerial_work_platforms
+    When I click on Electric Boom Lift in Filter By Category section
+    Then I validate the URL to be https://www.equipmentshare.com/rent/categories/electric-boom-lift
+    Then I validate the items in the listing page for Electric Boom Lift
+
+  Scenario: Validate page links for previous category page
+    Given I go to Equipmentshare Categories page
+    Given I click on a category Aerial_work_platforms
+    When I click on Electric Boom Lift in Filter By Category section
+    Then I Validate Breadcrumb to be RENT / EQUIPMENT / AERIAL WORK PLATFORMS / ELECTRIC BOOM LIFT
+
+  Scenario: Product details page launch and validate the page details
+    Given I go to Equipmentshare Categories page
+    Given I click on a category Aerial_work_platforms
+    When I click on Articulating Boom Lift in Filter By Category section
+    When I select the first equipment displayed in list page
+    Then I validate the page title to be Articulating Boom Lift, 30' - 35' IC Rental | EquipmentShare
+    Then I validate the URL to be https://www.equipmentshare.com/rent/equipment-classes/articulating-boom-lift-30-ft-35-ft-ic
+    Then I Validate Breadcrumb to be RENT / EQUIPMENT / AERIAL WORK PLATFORMS / ARTICULATING BOOM LIFT / ARTICULATING BOOM LIFT, 30' - 35' IC
+    Then I validate the equipment name to be Articulating Boom Lift, 30' - 35' IC and validate equipment pricing in details page
+
+  Scenario: Validate the product pricing after changing the location
+    Given I go to Equipmentshare Categories page
+    Given I click on a category Aerial_work_platforms
+    When I click on Articulating Boom Lift in Filter By Category section
+    Then I select a location Dallas, TX and store the equipment prices
+    Then I select a location San Francisco, CA
+    Then I compare the prices to be different

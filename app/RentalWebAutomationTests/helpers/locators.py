@@ -23,6 +23,7 @@ class CategoriesPageSecondaryHeadersLocators(object):
     ADVANCED_SOLUTIONS = 'advanced-solutions-link'
     TOOLING_SOLUTIONS = 'tooling-solutions-link'
     Location_SearchInput = '//div[@class="MuiBox-root css-1xta8wn"]/div/input'
+    ChangeLocationButton = '//p[@class="MuiTypography-root MuiTypography-body1 css-1am7h2s"]'
     Jobsite_Location_Text = '//p[@class="MuiTypography-root MuiTypography-body1 css-p8n97r"]'
     current_location = '//button[@class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1qyc0b7"]'
     Search_result1 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[1]'
@@ -30,6 +31,7 @@ class CategoriesPageSecondaryHeadersLocators(object):
     Search_result3 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[3]'
     Search_result4 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[4]'
     Search_result5 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[5]'
+    UseMyCurrentLocation_Failure_Errors = current_location + '/preceding::p'
 
 
 class CategoriesPageMainSection(object):
@@ -68,4 +70,23 @@ class CategorySubcategoriesMapping(object):
 
 
 class ListingPageSections(object):
-    Breadcrumb = '//div[@class="esr-breadcrumb-block desktop"]/a'
+    Breadcrumb_link1 = '//*[@class="esr-breadcrumb esr-breadcrumb-link"]'
+    Breadcrumb_link2 = '//div[@class="esr-breadcrumb esr-breadcrumb-disabled"][last()]'
+    ListPageMainTitleHeading = '//h1[@class="esr-section-title-2"]'
+    ActualProductCount = 'esr-equipment-list-total-count'
+    ProductCountAndSeeMore = '//div[@id="esr-equipment-list"]/div/div/p[text()]'
+    FilterByCategoryAndCategoryTitle = '//div[@class="esr-cp-filter-card"]/*[text()]'
+    AllSubcategoryHyperlink = '//div[@class="esr-cp-filter-card"]/div/*[text()]'
+    SubCategoryHyperlinks = '//a[@id="w-node-fad8d56b-85f0-06b9-3cda-1d3d63707ae9-62830260"]'
+    ProductCardsMainTitle = '//div[@id="w-node-_6f0e3465-bdaf-6545-85e2-0d1a8e17c596-8e17c593"]/p'
+    ProductCardEquipmentName = '//div[@id="w-node-_6f0e3465-bdaf-6545-85e2-0d1a8e17c596-8e17c593"]/h2'
+    FilterByCategoryFilterMarker = '//a[text()="All "]/preceding-sibling::div'
+    FilterMarkerClassName = 'esr-cp-filter-marker'
+    EquipmentPricinginDollars = '//p[@class="MuiTypography-root MuiTypography-body1 price-cell-typography css-1aq3u9w"]'
+    EquipmentPricingRanges = '//p[@class="MuiTypography-root MuiTypography-body1 price-cell-typography css-1aq3u9w"]/parent::div/following-sibling::p'
+
+class DetailsPageSections(object):
+    EquipmentName = '//div[@id="w-node-c693dd9c-22ea-d3c8-9a43-1e768e379fcc-62830264"]/h1'
+    PricingInDollars = '//p[@class="MuiTypography-root MuiTypography-body1 price-cell-typography css-1aq3u9w"]'
+    PricingRange = '//p[@class="MuiTypography-root MuiTypography-body1 price-cell-typography css-1irpbtm"]'
+    ProductImage = '//div[@class="esr-pd-image-gallery-block tab-n-desktop"]/img'
