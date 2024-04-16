@@ -1,4 +1,5 @@
 import time
+from tokenize import String
 
 from behave import given, then
 
@@ -24,7 +25,28 @@ def validateTitle(context, title):
 def validateURL(context, URL):
     actual_URL = URL
     current_URL = str(context.helperfunc.find_page_URL())
+    print(current_URL and actual_URL)
     assert actual_URL == current_URL
+
+@then('I navigate to {solution} page and validate {URL} and {Title}')
+def validatesolutionsPageURLAndTitles(context, solution, URL, Title):
+    print(solution)
+    print(URL)
+    if solution == "core":
+        CORE_SOLUTIONS = context.helperfunc.find_by_id(
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.CORE_SOLUTIONS)
+        CORE_SOLUTIONS.click()
+    elif solution == "advanced":
+        ADVANCED_SOLUTIONS = context.helperfunc.find_by_id(
+         helpers.locators.CategoriesPageSecondaryHeadersLocators.ADVANCED_SOLUTIONS)
+        ADVANCED_SOLUTIONS.click()
+    else:
+        TOOLING_SOLUTIONS = context.helperfunc.find_by_id(
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.TOOLING_SOLUTIONS)
+        TOOLING_SOLUTIONS.click()
+
+    validateURL(context, URL)
+    validateTitle(context, Title)
 
 
 @then('I validate the primary header section')
@@ -34,7 +56,7 @@ def validatePrimaryHeaderSection(context):
     BUY = context.helperfunc.find_by_id(helpers.locators.CategoriesPagePrimaryHeadersLocators.BUY)
     SERVICE = context.helperfunc.find_by_id(helpers.locators.CategoriesPagePrimaryHeadersLocators.SERVICE)
     T3_TECH = context.helperfunc.find_by_id(helpers.locators.CategoriesPagePrimaryHeadersLocators.T3_TECH)
-    COMPANY = context.helperfunc.find_by_id(helpers.locators.CategoriesPagePrimaryHeadersLocators.COMPANY)
+    CAREERS = context.helperfunc.find_by_id(helpers.locators.CategoriesPagePrimaryHeadersLocators.CAREERS)
     LOCATIONS = context.helperfunc.find_by_id(helpers.locators.CategoriesPagePrimaryHeadersLocators.LOCATIONS)
     SEARCH = context.helperfunc.find_by_id(helpers.locators.CategoriesPagePrimaryHeadersLocators.SEARCH)
     CONTACT = context.helperfunc.find_by_id(helpers.locators.CategoriesPagePrimaryHeadersLocators.CONTACT)
@@ -47,7 +69,7 @@ def validatePrimaryHeaderSection(context):
     assert BUY.text == "BUY"
     assert SERVICE.text == "SERVICE"
     assert T3_TECH.text == "T3 TECH"
-    assert COMPANY.text == "COMPANY"
+    assert CAREERS.text == "CAREERS"
     assert LOCATIONS.text == "LOCATIONS"
     assert SEARCH.is_displayed() is True
     assert CONTACT.is_displayed() is True
@@ -70,23 +92,6 @@ def validateSecondaryHeaderSection(context):
     assert CORE_SOLUTIONS.text == "CORE SOLUTIONS"
     assert ADVANCED_SOLUTIONS.text == "ADVANCED SOLUTIONS"
     assert TOOLING_SOLUTIONS.text == "TOOLING SOLUTIONS"
-
-
-@then('I validate the page url after clicking {solution} to be {url}')
-def validatePageURLAfterClickingSecondaryHeaders(context, solution, url):
-    if solution == "core solutions":
-        context.helperfunc.find_by_id(
-            helpers.locators.CategoriesPageSecondaryHeadersLocators.CORE_SOLUTIONS).click()
-        validateURL(context, url)
-    elif solution == "advanced solutions":
-        context.helperfunc.find_by_id(
-            helpers.locators.CategoriesPageSecondaryHeadersLocators.ADVANCED_SOLUTIONS).click()
-        validateURL(context, url)
-    else:
-        context.helperfunc.find_by_id(
-            helpers.locators.CategoriesPageSecondaryHeadersLocators.TOOLING_SOLUTIONS).click()
-        validateURL(context, url)
-
 
 @then('I validate all the sections should have the products listed with images')
 def validateCategoriesMainPageSectionProductImages(context):
@@ -136,7 +141,7 @@ def validateSubCategoryUnderEachCategory(context):
         helpers.locators.CategorySubcategoriesMapping.Agriculture_landscaping_text).text
     Agriculture_landscaping_category = context.helperfunc.find_by_xpath(
         helpers.locators.CategorySubcategoriesMapping.Agriculture_landscaping_category).text
-    assert Agriculture_landscaping_category == helpers.data.PageRelatedData.category_subcategory_dict.get(
+    assert Agriculture_landscaping_category== helpers.data.PageRelatedData.category_subcategory_dict.get(
         Agriculture_landscaping_text)
 
     Compaction_text = context.helperfunc.find_by_xpath(
@@ -284,6 +289,8 @@ def RefreshPageandValidateLocation(context, location):
         helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
     assert current_location == location
 
-@then('I Validate Breadcrumb and titles and product count')
-def ValidateBreadcrumb(context):
-    pass
+@then('I Validate Breadcrumb to be {Breadcrumb}')
+def ValidateBreadcrumb(context, Breadcrumb):
+    breadcrumb_links = context.helperfunc.find_elements_by_xpath(helpers.locators.ListingPageSections.Breadcrumb)
+    print("links:")
+    print(breadcrumb_links)
