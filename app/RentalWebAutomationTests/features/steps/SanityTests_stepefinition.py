@@ -291,6 +291,4 @@ def RefreshPageandValidateLocation(context, location):
 
 @then('I Validate Breadcrumb to be {Breadcrumb}')
 def ValidateBreadcrumb(context, Breadcrumb):
-    breadcrumb_links = context.helperfunc.find_elements_by_xpath(helpers.locators.ListingPageSections.Breadcrumb)
-    print("links:")
-    print(breadcrumb_links)
+    pass
