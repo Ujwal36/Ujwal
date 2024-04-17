@@ -85,7 +85,15 @@ Feature: Rental Web Automation
   Scenario: Validate the product pricing after changing the location
     Given I go to Equipmentshare Categories page
     Given I click on a category Aerial_work_platforms
-    When I click on Articulating Boom Lift in Filter By Category section
-    Then I select a location Dallas, TX and store the equipment prices
+    When I click on Articulating Boom Lift in Filter By Category sectionx
+    Then I Click on location icon on the top left corner
+    Then I select a location Dallas, TX
+    Then I Click on location icon on the top left corner
     Then I select a location San Francisco, CA
-    Then I compare the prices to be different
+
+  Scenario: Validate the quantity field in product details page
+    Given I go to Equipmentshare Categories page
+    Given I click on a category Aerial_work_platforms
+    When I click on Articulating Boom Lift in Filter By Category section
+    When I select the first equipment displayed in list page
+    Then I validate quantity component in details page

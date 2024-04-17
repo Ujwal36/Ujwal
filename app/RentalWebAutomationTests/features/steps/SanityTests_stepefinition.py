@@ -248,12 +248,15 @@ def ValidateLocationFeature(context):
 def Clicklocation(context):
     context.helperfunc.find_by_xpath(helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).click()
 
+
 @then('I click on set location type "D" in the search text and I validate the search results')
 def setlocation_validatelocationresults(context):
-    Location_Text = context.helperfunc.find_by_xpath(helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
+    Location_Text = context.helperfunc.find_by_xpath(
+        helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
 
     if Location_Text.lower() != "set location for accurate pricing":
-        context.helperfunc.find_by_xpath(helpers.locators.CategoriesPageSecondaryHeadersLocators.ChangeLocationButton).click()
+        context.helperfunc.find_by_xpath(
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.ChangeLocationButton).click()
 
     Location_search = context.helperfunc.find_by_xpath(
         helpers.locators.CategoriesPageSecondaryHeadersLocators.Location_SearchInput)
@@ -279,9 +282,26 @@ def setlocation_validatelocationresults(context):
 
 @then('I select a location {location}')
 def SelectLocationAndValidate(context, location):
-    context.helperfunc.find_by_xpath(
-        helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result1).click()
-    time.sleep(10)
+    try:
+        context.helperfunc.find_by_xpath(
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result1).click()
+        time.sleep(10)
+    except:
+        Location_Text = context.helperfunc.find_by_xpath(
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
+
+        if Location_Text.lower() != "set location for accurate pricing":
+            context.helperfunc.find_by_xpath(
+                helpers.locators.CategoriesPageSecondaryHeadersLocators.ChangeLocationButton).click()
+
+        Location_search = context.helperfunc.find_by_xpath(
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.Location_SearchInput)
+        Location_search.send_keys(location)
+
+        context.helperfunc.find_by_xpath(
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result1).click()
+        time.sleep(10)
+
     current_location = context.helperfunc.find_by_xpath(
         helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
     assert current_location == location
@@ -454,7 +474,52 @@ def ValidateDetailsPageEquipmentDetails(context, equipmentname):
         else:
             assert str(categories.text) == "/ 4-week"
     ValidateProductImage(context)
+
+
 def ValidateProductImage(context):
     productImage = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.ProductImage)
     assert productImage.get_attribute('src') is not None
     assert str(productImage.get_attribute('src')).endswith(".jpeg")
+
+def ValidateQuantityComponentDefaultValues(context):
+    # Validating Default values
+    quantityText = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.Quantity).text
+    assert quantityText == "Quantity"
+
+    QuantityIcrementerDecrementerButtondisplay = context.helperfunc.find_elements_by_xpath(
+        helpers.locators.DetailsPageSections.QuantityIcrementerDecrementerButton)
+    assert QuantityIcrementerDecrementerButtondisplay[0].text == "-"
+    assert QuantityIcrementerDecrementerButtondisplay[1].text == "+"
+
+    QuantityValue = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.QuantityValue).get_attribute(
+        'value')
+    assert QuantityValue == "1"
+
+def ValidateIncrementDecrementByOne(context):
+    # Validating Increment and decrement buttons
+    QuantityIcrementerDecrementerButton = context.helperfunc.find_elements_by_xpath(
+        helpers.locators.DetailsPageSections.QuantityIcrementerDecrementerButton)
+
+    # Increment by 1 and validate
+
+    QuantityIcrementerDecrementerButton[1].click()
+
+    QuantityValue = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.QuantityValue).get_attribute(
+        'value')
+    assert QuantityValue == "2"
+
+    # Decrement by 1 and validate
+
+    QuantityIcrementerDecrementerButton[0].click()
+
+    QuantityValue = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.QuantityValue).get_attribute(
+        'value')
+    assert QuantityValue == "1"
+
+@then("I validate quantity component in details page")
+def ValidateQuantityComponentDetailsPage(context):
+    ValidateQuantityComponentDefaultValues(context)
+    ValidateIncrementDecrementByOne(context)
+
+
+

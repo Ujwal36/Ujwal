@@ -33,7 +33,6 @@ class CategoriesPageSecondaryHeadersLocators(object):
     Search_result5 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[5]'
     UseMyCurrentLocation_Failure_Errors = current_location + '/preceding::p'
 
-
 class CategoriesPageMainSection(object):
     Aerial_work_platforms = '//img[@alt="Aerial Work Platforms available for rent at EquipmentShare"]'
     Agriculture_landscaping = '//img[@alt="Utility Vehicle 4 - 6 Passenger, Gas"]'
@@ -90,3 +89,6 @@ class DetailsPageSections(object):
     PricingInDollars = '//p[@class="MuiTypography-root MuiTypography-body1 price-cell-typography css-1aq3u9w"]'
     PricingRange = '//p[@class="MuiTypography-root MuiTypography-body1 price-cell-typography css-1irpbtm"]'
     ProductImage = '//div[@class="esr-pd-image-gallery-block tab-n-desktop"]/img'
+    Quantity = '//p[@class="MuiTypography-root MuiTypography-body1 css-anuy18"]'
+    QuantityIcrementerDecrementerButton = '//div[@class="MuiBox-root css-129k8e9"]/button/p'
+    QuantityValue = '//div[@class="MuiBox-root css-129k8e9"]/div/div/input'
