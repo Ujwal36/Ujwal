@@ -28,10 +28,10 @@ class HelperFunc(object):
         try:
             # wait 10 seconds before looking for element
             element = WebDriverWait(self._driver, 10).until(
-                EC.invisibility_of_element_located((By.XPATH, xpath))
+                EC.visibility_of_element_located((By.XPATH, xpath))
             )
-        finally:
-            self._driver.close()
+        except:
+            assert False
 
     def close(self):
         self._driver.quit()

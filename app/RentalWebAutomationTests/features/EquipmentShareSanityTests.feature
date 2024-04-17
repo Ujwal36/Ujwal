@@ -43,9 +43,10 @@ Feature: Rental Web Automation
     Given I go to Equipmentshare Categories page
     Given I click on a category Compaction
     Then I Click on location icon on the top left corner
-    Then I click on set location type "D" in the search text and I validate the search results
+    Then I click on set location type D in the search text and I validate the search results
     Then I select a location Dallas, TX
     Then I refresh the page and validate the location again to be Dallas, TX
+
 
   Scenario: Validate listing page
     Given I go to Equipmentshare Categories page
@@ -85,7 +86,7 @@ Feature: Rental Web Automation
   Scenario: Validate the product pricing after changing the location
     Given I go to Equipmentshare Categories page
     Given I click on a category Aerial_work_platforms
-    When I click on Articulating Boom Lift in Filter By Category sectionx
+    When I click on Articulating Boom Lift in Filter By Category section
     Then I Click on location icon on the top left corner
     Then I select a location Dallas, TX
     Then I Click on location icon on the top left corner

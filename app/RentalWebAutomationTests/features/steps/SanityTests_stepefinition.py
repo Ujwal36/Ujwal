@@ -31,8 +31,6 @@ def validateURL(context, URL):
 
 @then('I navigate to {solution} page and validate {URL} and {Title}')
 def validatesolutionsPageURLAndTitles(context, solution, URL, Title):
-    print(solution)
-    print(URL)
     if solution == "core":
         CORE_SOLUTIONS = context.helperfunc.find_by_id(
             helpers.locators.CategoriesPageSecondaryHeadersLocators.CORE_SOLUTIONS)
@@ -249,8 +247,8 @@ def Clicklocation(context):
     context.helperfunc.find_by_xpath(helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).click()
 
 
-@then('I click on set location type "D" in the search text and I validate the search results')
-def setlocation_validatelocationresults(context):
+@then('I click on set location type {searchstring} in the search text and I validate the search results')
+def setlocation_validatelocationresults(context, searchstring):
     Location_Text = context.helperfunc.find_by_xpath(
         helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
 
@@ -260,32 +258,21 @@ def setlocation_validatelocationresults(context):
 
     Location_search = context.helperfunc.find_by_xpath(
         helpers.locators.CategoriesPageSecondaryHeadersLocators.Location_SearchInput)
-    Location_search.send_keys("d")
+    Location_search.send_keys(searchstring)
 
-    search_result1 = context.helperfunc.find_by_xpath(
-        helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result1).text
-    search_result2 = context.helperfunc.find_by_xpath(
-        helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result2).text
-    search_result3 = context.helperfunc.find_by_xpath(
-        helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result3).text
-    search_result4 = context.helperfunc.find_by_xpath(
-        helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result4).text
-    search_result5 = context.helperfunc.find_by_xpath(
-        helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result5).text
+    search_results = context.helperfunc.find_elements_by_xpath(
+        helpers.locators.CategoriesPageSecondaryHeadersLocators.LocationSearch_results)
 
-    assert search_result1.startswith("D")
-    assert search_result2.startswith("D")
-    assert search_result3.startswith("D")
-    assert search_result4.startswith("D")
-    assert search_result5.startswith("D")
+    for results in search_results:
+        assert results.text.startswith(searchstring)
 
 
 @then('I select a location {location}')
 def SelectLocationAndValidate(context, location):
     try:
         context.helperfunc.find_by_xpath(
-            helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result1).click()
-        time.sleep(10)
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.LocationSearch_results).click()
+        context.helperfunc.explicitWait(helpers.locators.CategoriesPageSecondaryHeadersLocators.Location)
     except:
         Location_Text = context.helperfunc.find_by_xpath(
             helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
@@ -299,18 +286,19 @@ def SelectLocationAndValidate(context, location):
         Location_search.send_keys(location)
 
         context.helperfunc.find_by_xpath(
-            helpers.locators.CategoriesPageSecondaryHeadersLocators.Search_result1).click()
-        time.sleep(10)
+            helpers.locators.CategoriesPageSecondaryHeadersLocators.LocationSearch_results).click()
+        context.helperfunc.explicitWait(helpers.locators.CategoriesPageSecondaryHeadersLocators.Location)
 
     current_location = context.helperfunc.find_by_xpath(
         helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
+
     assert current_location == location
 
 
 @then('I refresh the page and validate the location again to be {location}')
 def RefreshPageandValidateLocation(context, location):
     context.helperfunc.refresh()
-    time.sleep(10)
+    context.helperfunc.explicitWait(helpers.locators.CategoriesPageSecondaryHeadersLocators.Location)
     current_location = context.helperfunc.find_by_xpath(
         helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
     assert current_location == location

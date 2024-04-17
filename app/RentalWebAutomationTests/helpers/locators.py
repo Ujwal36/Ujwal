@@ -18,7 +18,7 @@ class CategoriesPagePrimaryHeadersLocators(object):
     CART = 'esr-cart-header-dropdown'
 
 class CategoriesPageSecondaryHeadersLocators(object):
-    Location = '//*[@id="esr-navbar-location-button"]/div/button'
+    Location = '//*[@id="esr-navbar-location-button"]/div/button[text()]'
     CORE_SOLUTIONS = 'core-solutions-link'
     ADVANCED_SOLUTIONS = 'advanced-solutions-link'
     TOOLING_SOLUTIONS = 'tooling-solutions-link'
@@ -26,11 +26,7 @@ class CategoriesPageSecondaryHeadersLocators(object):
     ChangeLocationButton = '//p[@class="MuiTypography-root MuiTypography-body1 css-1am7h2s"]'
     Jobsite_Location_Text = '//p[@class="MuiTypography-root MuiTypography-body1 css-p8n97r"]'
     current_location = '//button[@class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1qyc0b7"]'
-    Search_result1 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[1]'
-    Search_result2 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[2]'
-    Search_result3 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[3]'
-    Search_result4 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[4]'
-    Search_result5 = '//div[@class="MuiBox-root css-1k95m2w"]/li/ul[5]'
+    LocationSearch_results = '//ul[contains(@class,"autocomplete-dropdown-item")]/span[text()]'
     UseMyCurrentLocation_Failure_Errors = current_location + '/preceding::p'
 
 class CategoriesPageMainSection(object):
