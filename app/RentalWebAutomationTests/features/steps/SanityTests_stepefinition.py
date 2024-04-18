@@ -586,8 +586,23 @@ def ValidateQuantityInCartModal(context, Expected_Quantity):
         'value')
 
 
-@then("I validate Cart Modal")
-def AddToCartFromDetailsPageAndValidateCartModal(context):
+@then("I validate Cart Modal for equipmentname to be {equipmentname}")
+def ValidateCartModalEquipmentName(context, equipmentname):
+
+    #Equipment name validation
+    EquipmentName = context.helperfunc.find_by_xpath(helpers.locators.AddToCartModal.EquipmentName)
+
+    assert EquipmentName.text.lower() == equipmentname.lower()
+
+@then("I validate pricing and equipment image")
+def ValidateCartModalEquipmentPricingAndImage(context):
+    #Pricing validation
+    ValidateInitialPricingVersusPostLocationSet(context)
+    #Product Image validation
+    EquipmentImagexpath = helpers.locators.AddToCartModal.ProductImage
+    ValidateProductImage(context, EquipmentImagexpath)
+
+def PunchDatesToCartModal(context):
     # Get current date
     current_time = datetime.datetime.now()
     year = current_time.year

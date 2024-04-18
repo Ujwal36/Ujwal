@@ -95,6 +95,8 @@ class AddToCartModal(object):
     QuantityIcrementerDecrementerButton = '//button[@class ="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium quantity-update-button increment-button css-1tx175w"]'
     QuantityValue = '//input[contains(@class,"MuiInputBase-input MuiOutlinedInput-input") and @type="number"]'
     EquipmentName = '//div[contains(@class,"MuiBox-root css-19u2w0e")]/p'
+    ProductImage = '//div[@class="MuiBox-root css-1givosi"]/img'
+    ModalCloseButton = 'svg.css-ez96q2'
 
 
 

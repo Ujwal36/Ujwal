@@ -62,6 +62,9 @@ class HelperFunc(object):
     def find_by_linkText(self, text):
         return self._driver.find_element(By.LINK_TEXT, text)
 
+    def find_by_css(self, css):
+        return self._driver.find_element(By.CSS_SELECTOR, css)
+
     def get_current_window_handle(self):
         return self._driver.current_window_handle
 

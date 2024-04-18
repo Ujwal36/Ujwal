@@ -102,8 +102,9 @@ Feature: Rental Web Automation
     Then I select a location Dallas, TX
     Then I Provide <Input_quantity> in quantity field
     Then I validate <Expected_Quantity> in cart modal
-    Then I validate Cart Modal
-
+    Then I validate Cart Modal for equipmentname to be Articulating Boom Lift, 30' - 35' IC
+    Then I validate pricing and equipment image
+    
     Examples:
     |Input_quantity|Expected_Quantity|
     |-5            |1                |
