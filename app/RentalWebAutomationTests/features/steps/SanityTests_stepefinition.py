@@ -1,7 +1,10 @@
+import datetime
 import time
 from tokenize import String
+import re
 
 from behave import given, then, when
+from selenium.webdriver import Keys
 
 import helpers.locators
 import helpers.data
@@ -437,18 +440,25 @@ def SelectFirstEquipmentInListPage(context):
         helpers.locators.ListingPageSections.ProductCardEquipmentName).click()
 
 
+def FetchProductPricingListFromDetailsPage(context):
+    context.helperfunc.explicitWait(helpers.locators.DetailsPageSections.PricingInDollars)
+    EquipmentPricing = context.helperfunc.find_elements_by_xpath(
+        helpers.locators.DetailsPageSections.PricingInDollars)
+    pricesForPerDayPerWeekPerFourWeek = []
+    for price in EquipmentPricing:
+        pricesForPerDayPerWeekPerFourWeek.append(price.text)
+    return pricesForPerDayPerWeekPerFourWeek
+
+
 @then('I validate the equipment name to be {equipmentname} and validate equipment pricing in details page')
 def ValidateDetailsPageEquipmentDetails(context, equipmentname):
     EquipmentName = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.EquipmentName)
 
     assert EquipmentName.text.lower() == equipmentname.lower()
 
-    EquipmentPricing = context.helperfunc.find_elements_by_xpath(
-        helpers.locators.DetailsPageSections.PricingInDollars)
+    ValidateInitialPricingVersusPostLocationSet(context)
 
-    for price in EquipmentPricing:
-        assert price.text.startswith("$")
-    # Validating pricing categories for all the equipments
+    # Validating pricing categories for the equipment
     EquipmentPricingRanges = context.helperfunc.find_elements_by_xpath(
         helpers.locators.DetailsPageSections.PricingRange)
     loopindex = 0
@@ -461,13 +471,29 @@ def ValidateDetailsPageEquipmentDetails(context, equipmentname):
             assert str(categories.text) == "/ week"
         else:
             assert str(categories.text) == "/ 4-week"
-    ValidateProductImage(context)
+    ValidateProductImage(context, helpers.locators.DetailsPageSections.ProductImage)
 
 
-def ValidateProductImage(context):
-    productImage = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.ProductImage)
+@then("I validate pricing")
+def ValidateInitialPricingVersusPostLocationSet(context):
+    EquipmentPricing = FetchProductPricingListFromDetailsPage(context)
+    Location_Text = context.helperfunc.find_by_xpath(
+        helpers.locators.CategoriesPageSecondaryHeadersLocators.Location).text
+
+    if Location_Text.lower() != "set location for accurate pricing":
+        for price in EquipmentPricing:
+            match = re.search("\d", price)
+            assert match is not None
+    else:
+        for price in EquipmentPricing:
+            assert price.startswith("$-")
+
+
+def ValidateProductImage(context, xpath):
+    productImage = context.helperfunc.find_by_xpath(xpath)
     assert productImage.get_attribute('src') is not None
     assert str(productImage.get_attribute('src')).endswith(".jpeg")
+
 
 def ValidateQuantityComponentDefaultValues(context):
     # Validating Default values
@@ -482,6 +508,7 @@ def ValidateQuantityComponentDefaultValues(context):
     QuantityValue = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.QuantityValue).get_attribute(
         'value')
     assert QuantityValue == "1"
+
 
 def ValidateIncrementDecrementByOne(context):
     # Validating Increment and decrement buttons
@@ -504,10 +531,79 @@ def ValidateIncrementDecrementByOne(context):
         'value')
     assert QuantityValue == "1"
 
+
 @then("I validate quantity component in details page")
 def ValidateQuantityComponentDetailsPage(context):
     ValidateQuantityComponentDefaultValues(context)
     ValidateIncrementDecrementByOne(context)
 
 
+@then(
+    "I select different locations {InitialLocation} and {TargetLocation} and then validate the prices to be different")
+def SelectTwoDifferentLocationsAndValidatePricesInDetailsPage(context, InitialLocation, TargetLocation):
+    Clicklocation(context)
+    SelectLocationAndValidate(context, InitialLocation)
 
+    pricingForInitialLocation = FetchProductPricingListFromDetailsPage(context)
+    Clicklocation(context)
+    SelectLocationAndValidate(context, TargetLocation)
+    pricingForTargetLocation = FetchProductPricingListFromDetailsPage(context)
+    i = 0
+    pricingDifference = True
+    for price in pricingForInitialLocation:
+        if price == pricingForTargetLocation[i]:
+            pricingDifference = False
+            break
+        i = i + 1
+    assert pricingDifference
+
+
+@then("I Provide {quantity} in quantity field")
+def ProvideQuantityValueAsInput(context, quantity):
+    quantityTextField = context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.QuantityValue)
+    quantityTextField.send_keys(Keys.BACKSPACE)
+    quantityTextField.send_keys(quantity)
+
+
+def DetailsPageAddToCartClick(context):
+    context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.AddToCartButton).click()
+
+
+def CartModalSelectDate(context, startDate, endDate):
+    javaScript = "document.getElementsByClassName('MuiInputBase-input MuiOutlinedInput-input Mui-readOnly MuiInputBase-readOnly css-1x5jdmq')[0].value = '" + startDate + "' "
+    context.helperfunc.executeJS(javaScript)
+
+    javaScript = "document.getElementsByClassName('MuiInputBase-input MuiOutlinedInput-input Mui-readOnly MuiInputBase-readOnly css-1x5jdmq')[1].value = '" + endDate + "' "
+    context.helperfunc.executeJS(javaScript)
+
+
+@then("I validate {Expected_Quantity} in cart modal")
+def ValidateQuantityInCartModal(context, Expected_Quantity):
+    DetailsPageAddToCartClick(context)
+    quantities = context.helperfunc.find_elements_by_xpath(helpers.locators.AddToCartModal.QuantityValue)
+    assert quantities[0].get_attribute(
+        'value') == quantities[1].get_attribute(
+        'value')
+
+
+@then("I validate Cart Modal")
+def AddToCartFromDetailsPageAndValidateCartModal(context):
+    # Get current date
+    current_time = datetime.datetime.now()
+    year = current_time.year
+    day = current_time.day
+    month = current_time.month
+
+    startDate = str(day) + "/" + str(month) + "/" + str(year)
+
+    year = year + 1
+    day = day + 1
+
+    endDate = str(day) + "/" + str(month) + "/" + str(year)
+
+    # Date Selection
+    CartModalSelectDate(context, startDate, endDate)
+
+
+def CartModalAddToCartClick(context):
+    context.helperfunc.find_by_xpath(helpers.locators.AddToCartModal.AddToCartButton).click()

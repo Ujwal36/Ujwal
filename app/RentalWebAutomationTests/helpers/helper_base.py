@@ -33,7 +33,10 @@ class HelperFunc(object):
         except:
             assert False
 
-    def close(self):
+    def executeJS(self, javaScript):
+        self._driver.execute_script(javaScript)
+
+    def closeBrowser(self):
         self._driver.quit()
 
     # Helper functions that are used to identify the web locators in Selenium Python tutorial
@@ -58,3 +61,9 @@ class HelperFunc(object):
 
     def find_by_linkText(self, text):
         return self._driver.find_element(By.LINK_TEXT, text)
+
+    def get_current_window_handle(self):
+        return self._driver.current_window_handle
+
+    def get_window_handles(self):
+        return self._driver.window_handles

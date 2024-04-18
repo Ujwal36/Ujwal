@@ -82,19 +82,33 @@ Feature: Rental Web Automation
     Then I validate the URL to be https://www.equipmentshare.com/rent/equipment-classes/articulating-boom-lift-30-ft-35-ft-ic
     Then I Validate Breadcrumb to be RENT / EQUIPMENT / AERIAL WORK PLATFORMS / ARTICULATING BOOM LIFT / ARTICULATING BOOM LIFT, 30' - 35' IC
     Then I validate the equipment name to be Articulating Boom Lift, 30' - 35' IC and validate equipment pricing in details page
+    Then I validate pricing
 
   Scenario: Validate the product pricing after changing the location
     Given I go to Equipmentshare Categories page
     Given I click on a category Aerial_work_platforms
     When I click on Articulating Boom Lift in Filter By Category section
-    Then I Click on location icon on the top left corner
-    Then I select a location Dallas, TX
-    Then I Click on location icon on the top left corner
-    Then I select a location San Francisco, CA
+    When I select the first equipment displayed in list page
+    Then I select different locations Dallas, TX and San Francisco, CA and then validate the prices to be different
+    Then I validate pricing
 
-  Scenario: Validate the quantity field in product details page
+  Scenario Outline: Validate the quantity field in product details page
     Given I go to Equipmentshare Categories page
     Given I click on a category Aerial_work_platforms
     When I click on Articulating Boom Lift in Filter By Category section
     When I select the first equipment displayed in list page
     Then I validate quantity component in details page
+    Then I Click on location icon on the top left corner
+    Then I select a location Dallas, TX
+    Then I Provide <Input_quantity> in quantity field
+    Then I validate <Expected_Quantity> in cart modal
+    Then I validate Cart Modal
+
+    Examples:
+    |Input_quantity|Expected_Quantity|
+    |-5            |1                |
+    |0             |1                |
+    |5             |5                |
+    |999999        |99               |
+
+

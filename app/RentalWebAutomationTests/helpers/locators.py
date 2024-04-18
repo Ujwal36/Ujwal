@@ -87,4 +87,21 @@ class DetailsPageSections(object):
     ProductImage = '//div[@class="esr-pd-image-gallery-block tab-n-desktop"]/img'
     Quantity = '//p[@class="MuiTypography-root MuiTypography-body1 css-anuy18"]'
     QuantityIcrementerDecrementerButton = '//div[@class="MuiBox-root css-129k8e9"]/button/p'
-    QuantityValue = '//div[@class="MuiBox-root css-129k8e9"]/div/div/input'
+    QuantityValue = '//input[contains(@class,"MuiInputBase-input MuiOutlinedInput-input") and @type="number"]'
+    AddToCartButton = '//button[text()="Add to cart"]'
+
+class AddToCartModal(object):
+    AddToCartButton = '//button[text()="ADD TO CART"]'
+    QuantityIcrementerDecrementerButton = '//button[@class ="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium quantity-update-button increment-button css-1tx175w"]'
+    QuantityValue = '//input[contains(@class,"MuiInputBase-input MuiOutlinedInput-input") and @type="number"]'
+    EquipmentName = '//div[contains(@class,"MuiBox-root css-19u2w0e")]/p'
+
+
+
+
+
+
+
+
+
+
