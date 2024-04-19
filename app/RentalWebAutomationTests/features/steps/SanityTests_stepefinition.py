@@ -615,10 +615,15 @@ def PunchDatesToCartModal(context):
     day = current_time.day
     month = current_time.month
 
+    if len(str(day)) == 1:
+        day = "0" + str(day)
+
+    if len(str(month)) == 1:
+        month = "0" + str(month)
+
     startDate = str(month) + "/" + str(day) + "/" + str(year)
 
     year = year + 1
-    day = day + 1
 
     endDate = str(month) + "/" + str(day) + "/" + str(year)
 
@@ -689,7 +694,7 @@ def validateSubtotalForEquipment(context):
 
     assert subTotal == 2*productPricing
 
-@then("I validate checkout button and continue shopping button in cart mini box")
+@then("I validate checkout button when clicked should take to cart page and continue shopping button to take to /rent page in cart mini box")
 def ValidateCheckoutButtonContinueShoppingButton(context):
     #After clicking continue shopping button validate page url
 

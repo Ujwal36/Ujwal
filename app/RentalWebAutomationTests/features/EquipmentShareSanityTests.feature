@@ -123,4 +123,4 @@ Feature: Rental Web Automation
     Then I validate date selections in cart modal
     Then I validate mini cart for equipment name to be Articulating Boom Lift, 30' - 35' IC and count to be 1
     Then I validate subtotal for equipment added
-    Then I validate checkout button and continue shopping button in cart mini box
+    Then I validate checkout button when clicked should take to cart page and continue shopping button to take to /rent page in cart mini box
