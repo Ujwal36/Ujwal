@@ -569,6 +569,10 @@ def DetailsPageAddToCartClick(context):
     context.helperfunc.find_by_xpath(helpers.locators.DetailsPageSections.AddToCartButton).click()
 
 
+def CartModalAddToCartClick(context):
+    context.helperfunc.find_by_xpath(helpers.locators.AddToCartModal.AddToCartButton).click()
+
+
 def CartModalSelectDate(context, startDate, endDate):
     javaScript = "document.getElementsByClassName('MuiInputBase-input MuiOutlinedInput-input Mui-readOnly MuiInputBase-readOnly css-1x5jdmq')[0].value = '" + startDate + "' "
     context.helperfunc.executeJS(javaScript)
@@ -577,7 +581,7 @@ def CartModalSelectDate(context, startDate, endDate):
     context.helperfunc.executeJS(javaScript)
 
 
-@then("I validate {Expected_Quantity} in cart modal")
+@then("I validate {Expected_Quantity} in the cart modal")
 def ValidateQuantityInCartModal(context, Expected_Quantity):
     DetailsPageAddToCartClick(context)
     quantities = context.helperfunc.find_elements_by_xpath(helpers.locators.AddToCartModal.QuantityValue)
@@ -588,19 +592,21 @@ def ValidateQuantityInCartModal(context, Expected_Quantity):
 
 @then("I validate Cart Modal for equipmentname to be {equipmentname}")
 def ValidateCartModalEquipmentName(context, equipmentname):
-
-    #Equipment name validation
+    DetailsPageAddToCartClick(context)
+    # Equipment name validation
     EquipmentName = context.helperfunc.find_by_xpath(helpers.locators.AddToCartModal.EquipmentName)
 
     assert EquipmentName.text.lower() == equipmentname.lower()
 
+
 @then("I validate pricing and equipment image")
 def ValidateCartModalEquipmentPricingAndImage(context):
-    #Pricing validation
+    # Pricing validation
     ValidateInitialPricingVersusPostLocationSet(context)
-    #Product Image validation
+    # Product Image validation
     EquipmentImagexpath = helpers.locators.AddToCartModal.ProductImage
     ValidateProductImage(context, EquipmentImagexpath)
+
 
 def PunchDatesToCartModal(context):
     # Get current date
@@ -609,12 +615,12 @@ def PunchDatesToCartModal(context):
     day = current_time.day
     month = current_time.month
 
-    startDate = str(day) + "/" + str(month) + "/" + str(year)
+    startDate = str(month) + "/" + str(day) + "/" + str(year)
 
     year = year + 1
     day = day + 1
 
-    endDate = str(day) + "/" + str(month) + "/" + str(year)
+    endDate = str(month) + "/" + str(day) + "/" + str(year)
 
     # Date Selection
     CartModalSelectDate(context, startDate, endDate)
@@ -622,3 +628,83 @@ def PunchDatesToCartModal(context):
 
 def CartModalAddToCartClick(context):
     context.helperfunc.find_by_xpath(helpers.locators.AddToCartModal.AddToCartButton).click()
+
+
+@then("I validate location set to be {location} in cart modal")
+def ValidateLocationSetInCartModal(context, location):
+    LocationText = context.helperfunc.find_by_xpath(helpers.locators.AddToCartModal.LocationText).text
+    assert LocationText == location
+
+
+@then("I validate date selections in cart modal")
+def ValidateDateSelectionsInCartModal(context):
+    # Validate error for no date
+    CartModalAddToCartClick(context)
+    try:
+        DateRequiredError = context.helperfunc.find_by_xpath(helpers.locators.AddToCartModal.DateRequiredError).text
+    except:
+        assert False
+    assert DateRequiredError.endswith("date required")
+
+    # Validate date range to be MM/DD/YYYY by sending date in that format
+    PunchDatesToCartModal(context)
+    ItemCount = 0
+    try:
+        ItemCount = int(context.helperfunc.find_by_xpath(helpers.locators.MiniCartBox.ItemCount).text)
+    except:
+        pass
+
+    CartModalAddToCartClick(context)
+
+    ItemCountvalue = int(context.helperfunc.find_by_xpath(helpers.locators.MiniCartBox.ItemCount).text)
+    assert ItemCountvalue == ItemCount + 1
+
+
+@then("I validate mini cart for equipment name to be {equipmentname} and count to be {count}")
+def ValidateMiniCartBoxPostAddToCart(context, equipmentname, count):
+    EquipmentDetails = context.helperfunc.find_by_xpath(helpers.locators.MiniCartBox.EquipmentName).text
+    assert EquipmentDetails.startswith(count)
+    assert EquipmentDetails.endswith(equipmentname)
+
+
+@then("I validate subtotal for equipment added")
+def validateSubtotalForEquipment(context):
+    EquipmentPricingSubtotals = context.helperfunc.find_elements_by_xpath(
+        helpers.locators.MiniCartBox.EquipmentPricingSubtotals).text
+    subTotal = 0
+    productPricing = 0
+    i = 0
+    for prices in EquipmentPricingSubtotals:
+        if i == 0:
+            subTotal = prices
+        elif i == 2:
+            productPricing = prices
+    subTotal = subTotal.replace("$", "")
+    subTotal = subTotal.replace(",", "")
+    productPricing = productPricing.replace("$", "")
+    productPricing = productPricing.replace(",", "")
+
+    subTotal = int(subTotal)
+    productPricing = int(productPricing)
+
+    assert subTotal == 2*productPricing
+
+@then("I validate checkout button and continue shopping button in cart mini box")
+def ValidateCheckoutButtonContinueShoppingButton(context):
+    #After clicking continue shopping button validate page url
+
+    ContinueShopping = context.helperfunc.find_by_xpath(helpers.locators.MiniCartBox.ContinueShopping)
+    ContinueShopping.click()
+    validateURL(context,"https://www.equipmentshare.com/rent")
+    validateTitle(context,"Equipment Rental | EquipmentShare - A Better Way To Rent")
+
+    #After clicking checkout button validate URL and title
+
+    CartHead = context.helperfunc.find_by_xpath(helpers.locators.MiniCartBox.cartHead)
+    CartHead.click()
+
+    CheckoutButton = context.helperfunc.find_by_xpath(helpers.locators.MiniCartBox.CheckoutButton)
+    CheckoutButton.click()
+
+    validateURL(context, "https://www.equipmentshare.com/rent/cart")
+    validateTitle(context, "Equipment Rental Cart | EquipmentShare")

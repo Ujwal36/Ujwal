@@ -101,9 +101,7 @@ Feature: Rental Web Automation
     Then I Click on location icon on the top left corner
     Then I select a location Dallas, TX
     Then I Provide <Input_quantity> in quantity field
-    Then I validate <Expected_Quantity> in cart modal
-    Then I validate Cart Modal for equipmentname to be Articulating Boom Lift, 30' - 35' IC
-    Then I validate pricing and equipment image
+    Then I validate <Expected_Quantity> in the cart modal
     
     Examples:
     |Input_quantity|Expected_Quantity|
@@ -112,4 +110,17 @@ Feature: Rental Web Automation
     |5             |5                |
     |999999        |99               |
 
-
+  Scenario: Validate cart modal post selections in details page
+    Given I go to Equipmentshare Categories page
+    Given I click on a category Aerial_work_platforms
+    When I click on Articulating Boom Lift in Filter By Category section
+    When I select the first equipment displayed in list page
+    Then I Click on location icon on the top left corner
+    Then I select a location Dallas, TX
+    Then I validate Cart Modal for equipmentname to be Articulating Boom Lift, 30' - 35' IC
+    Then I validate pricing and equipment image
+    Then I validate location set to be Dallas, TX in cart modal
+    Then I validate date selections in cart modal
+    Then I validate mini cart for equipment name to be Articulating Boom Lift, 30' - 35' IC and count to be 1
+    Then I validate subtotal for equipment added
+    Then I validate checkout button and continue shopping button in cart mini box

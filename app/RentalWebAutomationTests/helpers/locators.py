@@ -97,6 +97,17 @@ class AddToCartModal(object):
     EquipmentName = '//div[contains(@class,"MuiBox-root css-19u2w0e")]/p'
     ProductImage = '//div[@class="MuiBox-root css-1givosi"]/img'
     ModalCloseButton = 'svg.css-ez96q2'
+    LocationText = '//div[contains(@class,"autocomplete-styled-text MuiBox-root")]'
+    AddToCartButton = '//button[text()="ADD TO CART"]'
+    DateRequiredError = '//p[@class="MuiTypography-root MuiTypography-body1 css-10wff2g"]'
+
+class MiniCartBox(object):
+    cartHead = '//div[@id="esr-cart-header-dropdown"]'
+    ItemCount = '//div[@class="MuiBox-root css-jnce85"]'
+    EquipmentName = '//p[@class="MuiTypography-root MuiTypography-body1 css-86khyg"]'
+    EquipmentPricingSubtotals = '//p[@class="MuiTypography-root MuiTypography-body1 price-cell-typography css-1aq3u9w"]'
+    CheckoutButton = '//button[@class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-os1l3k"]'
+    ContinueShopping = 'button[@class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1vkp39s"]'
 
 
 
