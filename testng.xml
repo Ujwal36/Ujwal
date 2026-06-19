@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="DemoSuite">
@@ -11,3 +12,30 @@
     </test>
 
 </suite>
+=======
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="DemoSuite" parallel="methods" thread-count="2">
+    <test name="DemoTest">
+        <classes>
+            
+            <class name="demo.api.ApiDemo"/>
+        </classes>
+    </test>
+</suite>
+
+<!--
+<suite name="Suite">
+    <test name="SmokeTests">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="demo.TestDemo"/>
+        </classes>
+    </test>
+</suite>
+-->
+>>>>>>> e8eef4a (My PW demo code)
