@@ -11,13 +11,17 @@ import org.testng.annotations.Test;
 public class TestDemo {
 
     //Annotation --> Testng
-    @Test(dataProvider = "qtripregister", dataProviderClass = DP.class)
+    @Test
 
-    public static void testcase01(String UserName, String Password) throws  java.lang.InterruptedException {
+    public static void testcase01() throws  java.lang.InterruptedException {
         
         // Launch browser (Selenium 4.25.0 automatically manages the driver behind the scenes!)
-        WebDriver driver = new ChromeDriver();
-        
+       // WebDriver driver = new ChromeDriver();
+         ChromeOptions options = new ChromeOptions();
+        WebDriver driver = new RemoteWebDriver(
+                new URL("http://host.docker.internal:4444"),
+                options
+        );
         // Open website
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/register/");
         System.out.println(UserName + " " + Password);
