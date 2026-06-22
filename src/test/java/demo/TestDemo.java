@@ -39,7 +39,7 @@ public class TestDemo {
         String username = "ujwalk@crio.com" + UUID.randomUUID();
         driver.findElement(By.id("floatingInput")).sendKeys(username);
 
-
+         String Password =  UUID.randomUUID().toString();
         driver.findElement(By.id("floatingPassword")).sendKeys(Password);
 
         driver.findElement(By.name("confirmpassword")).sendKeys(Password);
