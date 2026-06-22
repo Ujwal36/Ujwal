@@ -36,7 +36,7 @@ public class TestDemo {
 
         Thread.sleep(1000);
 
-        String username = UserName + UUID.randomUUID();
+        String username = "ujwalk@crio.com" + UUID.randomUUID();
         driver.findElement(By.id("floatingInput")).sendKeys(username);
 
 
