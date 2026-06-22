@@ -31,7 +31,7 @@ public class TestDemo {
         );
         // Open website
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/register/");
-        System.out.println(UserName + " " + Password);
+        
 
 
         Thread.sleep(1000);
