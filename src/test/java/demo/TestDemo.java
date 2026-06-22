@@ -20,18 +20,24 @@ public class TestDemo {
     //Annotation --> Testng
     @Test
 
-    public static void testcase01() throws  java.lang.InterruptedException {
+    public static void testcase01() throws  java.lang.InterruptedException, MalformedURLException {
         
         // Launch browser (Selenium 4.25.0 automatically manages the driver behind the scenes!)
-       // WebDriver driver = new ChromeDriver();
-         ChromeOptions options = new ChromeOptions();
+        //WebDriver driver = new ChromeDriver();
+
+       ChromeOptions options = new ChromeOptions();
+
+      // WebDriver driver = new ChromeDriver(); // Run on local machine by opening chrome tabs 
+
         WebDriver driver = new RemoteWebDriver(
                 new URL("http://host.docker.internal:4444"),
                 options
         );
+        //http://host.docker.internal:4444
+        
         // Open website
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/register/");
-        
+       // System.out.println(UserName + " " + Password);
 
 
         Thread.sleep(1000);
@@ -39,7 +45,9 @@ public class TestDemo {
         String username = "ujwalk@crio.com" + UUID.randomUUID();
         driver.findElement(By.id("floatingInput")).sendKeys(username);
 
-         String Password =  UUID.randomUUID().toString();
+        String Password =  UUID.randomUUID().toString();
+
+
         driver.findElement(By.id("floatingPassword")).sendKeys(Password);
 
         driver.findElement(By.name("confirmpassword")).sendKeys(Password);
