@@ -1,8 +1,8 @@
 pipeline {
-    agent any
-    tools {
-            maven 'maven-3.9.12'
-            jdk 'jdk17'
+    agent {
+        docker {
+            image 'maven:3.9.9-eclipse-temurin-17'
+        }
     }
 
     stages {
