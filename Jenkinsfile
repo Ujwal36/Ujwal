@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven'    // Must exactly match the name in Global Tool Configuration
+    }
     stages {
         stage('Build') {
             steps {
